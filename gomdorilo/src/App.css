@@ -330,13 +330,14 @@ span {
 #main-title {
     font-size: 26px;
     font-weight: bold;
+    margin-top: 2%;
 }
 
 .modal-content {
     background-color: white;
-    width: 30%;
+    width: 35%;
     height: 45%;
-    padding: 20px;
+    padding: 2%;
     border-radius: 8px;
     position: relative;
     text-align: center;
@@ -346,15 +347,28 @@ span {
     padding-left: 90%;
     background: none;
     border: none;
-    font-size: 20px;
+    font-size: 24px;
     color: gray;
     cursor: pointer;
 }
 
 .toggle-group {
     display: flex;
+    width: 100%;
     justify-content: center;
-    margin: 20px 0;
+    margin: 8% 0;
+}
+
+#activee {
+    font-size: 20px;
+    padding-left: 4%;
+    padding-right: 6%;
+}
+
+#privatee {
+    font-size: 20px;
+    padding-left: 4%;
+    padding-right: 6%;
 }
 
 .toggle-group button {
@@ -372,18 +386,18 @@ span {
 
 .info {
     text-align: left;
-    padding-left: 20%;
+    padding-left: 23%;
     color: gray;
-    margin-top: 10px;
+    margin-top: -3%;
 }
 
 #OK {
     display: flex;
     justify-content: center;
-    margin-top: 20px;
     font-size: 16px;
-    margin-left: 15%;
-    width: 70%;
+    margin-left: 22%;
+    margin-top: 5%;
+    width: 54%;
     border-radius: 8px;
     background-color: #1F8BFF;
     color: #fff;

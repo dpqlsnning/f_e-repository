@@ -91,10 +91,10 @@ const Header = ({ setSearchTerm, toggleMenu }) => {
                         <button className="close-btn" onClick={() => setIsModalOpen(false)}>X</button>
                         <p id="main-title">작성을 완료하시겠습니까?</p>
                         <div className="toggle-group">
-                            <button onClick={() => setIsPublic(true)} className={isPublic ? 'active' : ''}>
+                            <button onClick={() => setIsPublic(true)} className={isPublic ? 'active' : ''} id="activee">
                                 <img src={picture3} alt="public icon" width="30%" /> 공개
                             </button>
-                            <button onClick={() => setIsPublic(false)} className={!isPublic ? 'active' : ''}>
+                            <button onClick={() => setIsPublic(false)} className={!isPublic ? 'active' : ''} id="privatee">
                                 <img src={picture4} alt="private icon" width="18%" /> 비공개
                             </button>
                         </div>
