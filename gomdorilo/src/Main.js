@@ -13,7 +13,6 @@ function Main() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [selectedType, setSelectedType] = useState('작성일');
     const navigate = useNavigate();
-
     const initialPosts = [
         { no: 120, title: '카페인, 얼마나 도움이 될까?', author: '몬스터에너지', date: '2024.10.01', recommendations: 13 },
         { no: 114, title: '내가 엄준식을 찬양하게 된 이유', author: '기술숭배', date: '2024.10.01', recommendations: 2 },
@@ -56,10 +55,12 @@ function Main() {
         setFilteredPosts([...posts, newPost]);
     };
 
-    navigate('/main', {
-        state: {  }
-    });
-
+    const NewPostButton = () => {
+        const navigate = useNavigate();
+        return (
+            <button className="new" onClick={() => navigate('/new-post')}>새 글 작성</button>
+        );
+    };
 
     return (
         <div className="container">
@@ -84,12 +85,5 @@ function Main() {
         </div>
     );
 }
-
-const NewPostButton = () => {
-    const navigate = useNavigate();
-    return (
-        <button className="new" onClick={() => navigate('/new-post')}>새 글 작성</button>
-    );
-};
 
 export default Main;
