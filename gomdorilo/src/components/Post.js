@@ -26,7 +26,7 @@ const Post = () => {
     };
 
     const confirmDelete = () => {
-        navigate('/'); 
+        navigate('/main'); 
     };
 
     const cancelDelete = () => {
