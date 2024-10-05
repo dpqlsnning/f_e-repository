@@ -1,6 +1,5 @@
-@font-face {
-        font-family: 'Pretendard';
-        src: url('./Pretendard-Medium.otf');
+body{
+    font-family: 'Pretendard', sans-serif;
 }
 
 .container {
