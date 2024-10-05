@@ -21,6 +21,10 @@ const Post = () => {
         setIsModalOpen(true);
     };
 
+    const handleLogoClick = () => {
+        navigate('/main');
+    };
+
     const confirmDelete = () => {
         navigate('/'); 
     };
@@ -32,7 +36,7 @@ const Post = () => {
     return (
         <div className="post-container">
             <div className="header">
-                <div className="logo">
+            <div className="logo" onClick={handleLogoClick} style={{ cursor: 'pointer' }}>
                     <p>BamGallary</p>
                 </div>
                 <div className="search">

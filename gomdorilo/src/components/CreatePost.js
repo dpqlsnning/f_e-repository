@@ -42,7 +42,7 @@ const Header = ({ setSearchTerm, toggleMenu }) => {
     };
 
     const handleLogoClick = () => {
-        navigate('/');
+        navigate('/main');
     };
 
     return (
