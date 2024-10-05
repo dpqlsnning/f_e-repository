@@ -1,5 +1,6 @@
 import './App.css';
 import React, { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import Header from './components/Header.js';
 import Bar from './components/Bar.js';
 import PostTable from './components/PostTable.js';
@@ -8,11 +9,11 @@ import CreatePost from './components/CreatePost.js';
 import { Routes, Route } from 'react-router-dom';
 
 function Main() {
-    const [username] = useState('Jin_venus08');
+    const location = useLocation();
+    const username = location.state?.username || 'Guest';
     const [searchTerm, setSearchTerm] = useState('');
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [selectedType, setSelectedType] = useState('작성일');
-    const navigate = useNavigate();
     const initialPosts = [
         { no: 120, title: '카페인, 얼마나 도움이 될까?', author: '몬스터에너지', date: '2024.10.01', recommendations: 13 },
         { no: 114, title: '내가 엄준식을 찬양하게 된 이유', author: '기술숭배', date: '2024.10.01', recommendations: 2 },

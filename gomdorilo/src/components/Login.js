@@ -1,41 +1,43 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
-    const navigate = useNavigate();
-    const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate(); 
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        navigate('/home');
+    const handleLogin = () => {
+        navigate('/main'); 
     };
 
-
     return (
-        <div style={{ maxWidth: '400px', margin: '0 auto', padding: '20px' }}>
-            <h2>Login</h2>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label>Email:</label>
-                    <input 
-                        type="email" 
-                        value={email} 
-                        onChange={(e) => setEmail(e.target.value)} 
-                        required 
-                    />
+        <div className="login-container">
+            <div className="login-box">
+                <h2 className="login-title">Login</h2>
+                <div className="login-margin">
+                    <div className="input-field">
+                        <input
+                            type="text"
+                            id="username"
+                            value={username}
+                            placeholder="이메일 입력"
+                            onChange={(e) => setUsername(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <div className="input-field">
+                        <input
+                            type="password"
+                            id="password"
+                            value={password}
+                            placeholder="비밀번호 입력"
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <button className="login-button" onClick={handleLogin}> 로그인 </button>
                 </div>
-                <div>
-                    <label>Password:</label>
-                    <input 
-                        type="password" 
-                        value={password} 
-                        onChange={(e) => setPassword(e.target.value)} 
-                        required 
-                    />
-                </div>
-                <button type="submit">Login</button>
-            </form>
+            </div>
         </div>
     );
 };
