@@ -20,7 +20,7 @@ const Login = () => {
                             type="text"
                             id="username"
                             value={username}
-                            placeholder="이메일 입력"
+                            placeholder="아이디 입력"
                             onChange={(e) => setUsername(e.target.value)}
                             required
                         />
