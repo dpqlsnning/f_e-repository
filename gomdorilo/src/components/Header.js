@@ -24,8 +24,8 @@ const Header = ({ username, searchTerm, setSearchTerm, handleSearch, isMenuOpen,
                 />
             </div>
             <div className="mypost" onClick={toggleMenu}>
-                <p>내 게시물 <span> | </span> {username} </p>
-                <img src={picture2} alt="face-symbol" className="face-icon" />
+                <p id="emp">내 게시물 <span id="emp"> | </span> {username} </p>
+                <img src={picture2} alt="face-symbol" className="face-icon" id="emp" />
             </div>
             {isMenuOpen && (
                 <div className="dropdown-menu">
