@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
 import './App.css';
+import React, { useState } from 'react';
 import Header from './components/Header.js';
 import Bar from './components/Bar.js';
 import PostTable from './components/PostTable.js';

@@ -4,10 +4,11 @@ import picture2 from '../img/frame.png';
 import picture3 from '../img/eye.png';
 import picture4 from '../img/Vector.png';
 
-const Header = ({ username, setSearchTerm, toggleMenu }) => {
+const Header = ({ setSearchTerm, toggleMenu }) => {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [username] = useState('Jin_venus08')
     const [isPublic, setIsPublic] = useState(true); 
     const [date] = useState('2024.10.01');
     
@@ -60,8 +61,8 @@ const Header = ({ username, setSearchTerm, toggleMenu }) => {
                     />
                 </div>
                 <div className="mypost" onClick={toggleMenu}>
-                    <p>임시저장된 글 <span> | </span> Jin_venus08</p>
-                    <img src={picture2} alt="face-symbol" className="face-icon" />
+                    <p id="ty" className="sidee">임시저장된 글 <span id="ty"> | </span> {username} </p>
+                    <img src={picture2} alt="face-symbol" className="face-icon" id="ty" />
                 </div>
             </div>
             <div className="post-form">
@@ -98,7 +99,7 @@ const Header = ({ username, setSearchTerm, toggleMenu }) => {
                             </button>
                         </div>
                         <div className="info">
-                            <p>작성자 : Jin_venus08</p>
+                            <p>작성자 : {username}</p>
                             <p>작성일 : {date}</p>
                         </div>
                         <button id="OK" onClick={handleFinalizePost}>작성 완료</button>

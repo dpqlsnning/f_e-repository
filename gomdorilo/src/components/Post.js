@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom'; 
 import picture2 from '../img/frame.png';
 
-const Post = () => {
+const Post = ({username}) => {
     const location = useLocation();
     const navigate = useNavigate();
     const { title = '', content = '' } = location.state || {};
@@ -35,16 +35,16 @@ const Post = () => {
                     <p>BamGallary</p>
                 </div>
                 <div className="search">
-                    <input
-                        id="search-bar"
-                        type="text"
-                        placeholder="검색어를 입력하세요"
-                        style={{ opacity: 0 }}
-                    />
+                <input
+                    id="search-bar"
+                    type="text"
+                    placeholder="검색어를 입력하세요"
+                    style={{opacity: 0}}
+                />
                 </div>
                 <div className="mypost">
-                    <p>내 게시물 <span> | </span> Jin_venus08 </p>
-                    <img src={picture2} alt="face-symbol" className="face-icon" />
+                <p id="emp" className="sidee">임시저장된 글 <span id="emp"> | </span> {username} </p>
+                <img src={picture2} alt="face-symbol" className="face-icon" id="emp" />
                 </div>
             </div>
             <div className="post-form">
