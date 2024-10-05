@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom'; 
 import picture2 from '../img/frame.png';
 
-const Post = ({username}) => {
+const Post = () => {
     const location = useLocation();
     const navigate = useNavigate();
+    const [username] = useState('Jin_venus08')
     const { title = '', content = '' } = location.state || {};
 
     const [titleState] = useState(title);
