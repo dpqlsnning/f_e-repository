@@ -1,5 +1,6 @@
-body {
-    font-family: Nanum Gothic Coding, sans-serif;
+@font-face {
+        font-family: 'Pretendard';
+        src: url('./Pretendard-Medium.otf');
 }
 
 .container {
