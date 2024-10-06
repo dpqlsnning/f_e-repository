@@ -22,6 +22,7 @@ const TableHead = styled.thead`
         padding-top: 2.5%;
         padding-bottom: 2.5%;
         color: #000;
+        padding-left: 2%;
 
         &::after {
             content: "";
@@ -38,6 +39,7 @@ const TableHead = styled.thead`
 const TableBody = styled.tbody`
     tr {
         position: relative;
+        padding-left: 3%;
 
         &::after {
             content: "";
@@ -52,7 +54,7 @@ const TableBody = styled.tbody`
 `;
 
 const TableCell = styled.td`
-    padding: 2% 1.6%;
+    padding: 2%;
     border: none; 
     font-weight: 400;
     white-space: nowrap;
@@ -63,7 +65,7 @@ const TableCell = styled.td`
 `;
 
 const TitleColumn = styled(TableCell)`
-    padding-right: 30px;
+    padding-right: 1%;
 `;
 
 const AuthorColumn = styled(TableCell)`
