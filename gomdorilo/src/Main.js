@@ -1,12 +1,44 @@
-import './App.css';
 import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate, Routes, Route } from 'react-router-dom';
 import Header from './components/Header.js';
 import Bar from './components/Bar.js';
 import PostTable from './components/PostTable.js';
-import { useNavigate } from 'react-router-dom';
 import CreatePost from './components/CreatePost.js';
-import { Routes, Route } from 'react-router-dom';
+import styled from 'styled-components';
+
+const Container = styled.div`
+    font-family: 'Pretendard', sans-serif;
+    width: 100%;
+    margin: 0 auto;
+`;
+
+const NewPostButtonStyled = styled.button`
+    display: flex;
+    color: #fff;
+    justify-content: center;
+    text-align: center;
+    background-color: #1F8BFF;
+    font-weight: 600;
+    font-size: 20px;
+    border: none;
+    width: 9%;
+    padding-top: 1.1%;
+    padding-bottom: 1.1%;
+    margin-top: -4%;
+    margin-left: 75.3%;
+    border-radius: 8px;
+    white-space: nowrap;
+    cursor: pointer;
+`;
+
+const Line = styled.div`
+    width: 68%;
+    height: 1%;
+    margin-top: 3%;
+    margin-left: 16.2%;
+    border: 1px solid #000;
+    background-color: #000;
+`;
 
 function Main() {
     const location = useLocation();
@@ -59,12 +91,12 @@ function Main() {
     const NewPostButton = () => {
         const navigate = useNavigate();
         return (
-            <button className="new" onClick={() => navigate('/new-post')}>새 글 작성</button>
+            <NewPostButtonStyled onClick={() => navigate('/new-post')}>새 글 작성</NewPostButtonStyled>
         );
     };
 
     return (
-        <div className="container">
+        <Container>
             <Header 
                 username={username} 
                 searchTerm={searchTerm} 
@@ -78,12 +110,12 @@ function Main() {
                 handleTypeClick={handleTypeClick} 
             />
             <NewPostButton />
-            <div className="line"></div>
+            <Line />
             <PostTable filteredPosts={filteredPosts} />
             <Routes>
                 <Route path="/new-post" element={<CreatePost onPostSubmit={handlePostSubmit} />} />
             </Routes>
-        </div>
+        </Container>
     );
 }
 

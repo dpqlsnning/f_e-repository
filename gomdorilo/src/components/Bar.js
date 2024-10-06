@@ -1,22 +1,43 @@
 import React from 'react';
+import styled from 'styled-components';
+
+const TypeContainer = styled.div`
+    font-family: 'Pretendard', sans-serif;
+    display: flex;
+    padding-top: 2%;
+    width: 80%;
+    padding-left: 15.8%;
+`;
+
+const TypeItem = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 2%;
+    cursor: pointer;
+`;
+
+const TypeText = styled.p`
+    color: ${({ isSelected }) => (isSelected ? '#000' : '#666')};
+    font-size: 20px;
+`;
+
+const Underline = styled.div`
+    width: 178%;
+    height: 4px;
+    background-color: #1F8BFF;
+`;
 
 const Bar = ({ selectedType, handleTypeClick }) => {
-
     return (
-        <div className="type">
-            <div className="type-item" onClick={() => handleTypeClick('작성일')}>
-                <p id="date" style={{ color: selectedType === '작성일' ? '#000' : '#666' }}> 작성일 </p>
-                {selectedType === '작성일' && <div className="underline" />}
-            </div>
-            <div className="type-item" onClick={() => handleTypeClick('인기글')}>
-                <p id="fame" style={{ color: selectedType === '인기글' ? '#000' : '#666' }}> 인기글 </p>
-                {selectedType === '인기글' && <div className="underline" />}
-            </div>
-            <div className="type-item" onClick={() => handleTypeClick('팔로우')}>
-                <p id="follow" style={{ color: selectedType === '팔로우' ? '#000' : '#666' }}> 팔로우 </p>
-                {selectedType === '팔로우' && <div className="underline" />}
-            </div>
-        </div>
+    <TypeContainer>
+        {['작성일', '인기글', '팔로우'].map(type => (
+            <TypeItem key={type} onClick={() => handleTypeClick(type)}>
+                <TypeText isSelected={selectedType === type}>{type}</TypeText>
+                {selectedType === type && <Underline />}
+        </TypeItem>
+    ))}
+    </TypeContainer>
     );
 };
 
