@@ -98,10 +98,6 @@ const Header = ({ setSearchTerm, toggleMenu }) => {
                                 <img src={picture4} alt="private icon" width="18%" /> 비공개
                             </button>
                         </div>
-                        <div className="info">
-                            <p>작성자 : {username}</p>
-                            <p>작성일 : {date}</p>
-                        </div>
                         <button id="OK" onClick={handleFinalizePost}>작성 완료</button>
                     </div>
                 </div>
