@@ -73,7 +73,7 @@ const Header = ({ setSearchTerm, toggleMenu }) => {
                     onChange={(e) => setTitle(e.target.value)}
                     className="title-input"
                 />
-                <textarea
+                <textarea id="textarea_before"
                     placeholder="내용을 입력하세요"
                     value={content}
                     onChange={(e) => setContent(e.target.value)}
