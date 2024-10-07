@@ -96,12 +96,15 @@ const Textarea = styled.textarea`
 `;
 
 const CommentTextarea = styled.textarea`
-    width: 100%;
-    height: 300px;
+    width: 96.5%;
+    height: 200px;
+    margin-top: 4%;
     padding: 20px 0.5%;
-    background-color: #f0f0f0; // 댓글 입력 textarea의 배경색
+    background-color: #f0f0f0;
+    border-radius: 12px;
     font-size: 18px;
-    border: none;
+    border: 1px solid #E6E6E6;
+    padding-left: 3%;
     resize: none;
     outline: none;
 

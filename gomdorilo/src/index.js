@@ -14,7 +14,6 @@ root.render(
             <Route path="/main" element={<Main />} />
             <Route path="/new-post" element={<CreatePost />} />
             <Route path="/post" element={<Post />} />
-
         </Routes>
     </Router>
 );
