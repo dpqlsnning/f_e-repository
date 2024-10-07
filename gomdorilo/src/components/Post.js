@@ -177,7 +177,7 @@ const ModalContent = styled.div`
 
 const ModalText = styled.p`
     padding: 2%;
-    margin-top: 11%;
+    margin-top: 13%;
     font-size: 24px;
     font-weight: 600;
 `;

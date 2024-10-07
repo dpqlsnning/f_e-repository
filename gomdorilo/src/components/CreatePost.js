@@ -142,7 +142,7 @@ const ModalContent = styled.div`
     font-family: 'Pretendard', sans-serif;
     background-color: #fff;
     width: 30%;
-    height: 40%;
+    height: 35%;
     padding: 2%;
     border-radius: 8px;
     position: relative;
