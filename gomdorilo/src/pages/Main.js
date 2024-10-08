@@ -2,10 +2,10 @@ import styled from 'styled-components';
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate, Routes, Route } from 'react-router-dom';
 import axios from 'axios';
-import Header from './components/Header.js';
-import Bar from './components/Bar.js';
-import PostTable from './components/PostTable.js';
-import CreatePost from './components/CreatePost.js';
+import Header from '../components/Dropdown.js';
+import Bar from '../components/Bar.js';
+import PostTable from './PostTable.js';
+import CreatePost from './CreatePost.js';
 
 const Container = styled.div`
     font-family: 'Pretendard', sans-serif;

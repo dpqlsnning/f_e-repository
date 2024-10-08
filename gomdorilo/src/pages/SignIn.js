@@ -1,33 +1,37 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../styled_components/Login.css'; 
+import '../styled_components/SignIn.css';
 
-const Login = () => {
-    const [username, setUsername] = useState('');
+const SignIn = () => {
     const [password, setPassword] = useState('');
+    const confirmPassword = useState('');
+    const [email, setEmail] = useState('');
     const navigate = useNavigate();
 
-    const handleLogin = () => {
-        navigate('/main'); 
+    const handleSignIn = () => {
+        if (password !== confirmPassword) {
+            return;
+        }
+        navigate('/signin'); 
     };
 
-    const handleSignIn = () => {
-        navigate('/signin');
+    const handleSignUp = () => {
+        navigate('/signup');
     };
 
     return (
-        <div className="login-container">
-            <div className="login-box">
-                <h2 className="login-title">Login</h2>
-                <div className="login-margin">
+        <div className="signin-container">
+            <div className="signin-box">
+                <h2 className="signin-title">Sign In</h2>
+                <div className="signup-margin">
                     <div className="input-field">
                         <input
-                            type="text"
-                            id="username"
-                            value={username}
+                            type="email"
+                            id="email"
+                            value={email}
                             className="input"
                             placeholder="이메일 입력"
-                            onChange={(e) => setUsername(e.target.value)}
+                            onChange={(e) => setEmail(e.target.value)}
                             required
                         />
                     </div>
@@ -42,12 +46,12 @@ const Login = () => {
                             required
                         />
                     </div>
-                    <button className="login-button" onClick={handleLogin}>로그인</button>
-                    <button className="sign-in-button" onClick={handleSignIn}>회원가입하기</button>
+                    <button className="signin-button" onClick={handleSignIn}> 로그인 </button>
+                    <button className="signup-button" onClick={handleSignUp}> 회원가입하기 </button>
                 </div>
             </div>
         </div>
     );
 };
 
-export default Login;
+export default SignIn;
