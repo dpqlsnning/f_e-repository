@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Header from '../components/Header.js';
 import { useLocation, useNavigate } from 'react-router-dom'; 
 import picture2 from '../img/frame.png';
 import axios from 'axios';
@@ -55,22 +56,9 @@ const Post = () => {
 
     return (
         <div className="post-container">
-            <header className="header">
-                <div className="logo">BamGallary</div>
-                <div className="search-container">
-                    <input
-                        id="search-bar"
-                        type="text"
-                        placeholder="검색어를 입력하세요"
-                        className="search-input"
-                        style={{ opacity: 0 }}
-                    />
-                </div>
-                <div className="my-post">
-                    <p>내 게시물 <span> | </span> Jin_venus08 </p>
-                    <img src={picture2} alt="face-symbol" className="face-icon" />
-                </div>
-            </header>
+            <Header 
+                username="Jin_venus08" 
+            />
             <div className="post-form">
                 <div style={{ display: 'flex', alignItems: 'center' }}>
                     <input 
@@ -109,9 +97,9 @@ const Post = () => {
             {isModalOpen && (
                 <div className="modal">
                     <div className="modal-content">
-                        <p className="modal-text">정말로 삭제하시겠습니까?</p>
-                        <button className="modal-delete-button" onClick={confirmDelete}>삭제</button>
+                        <p className="modal-text"> 이 글을 삭제하시겠습니까?</p>
                         <button className="cancel-button" onClick={cancelDelete}>취소</button>
+                        <button className="modal-delete-button" onClick={confirmDelete}>삭제</button>
                     </div>
                 </div>
             )}

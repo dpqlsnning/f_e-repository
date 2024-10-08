@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Header from '../components/Header.js'; 
 import '../styled_components/CreatePost.css'; 
-import picture2 from '../img/frame.png';
 import picture3 from '../img/eye.png';
 import picture4 from '../img/Vector.png';
 import axios from 'axios';
@@ -48,7 +48,7 @@ const CreatePost = ({ setSearchTerm, toggleMenu }) => {
         };
 
         try {
-            const response = await axios.post('https:/https://port-0-b-e-repository-m1qaons0275b16c0.sel4.cloudtype.app/board/save', postData);
+            const response = await axios.post('https://port-0-b-e-repository-m1qaons0275b16c0.sel4.cloudtype.app/board/save', postData);
             console.log('게시글 저장 성공:', response.data);
 
             setTitle('');
@@ -63,27 +63,17 @@ const CreatePost = ({ setSearchTerm, toggleMenu }) => {
         }
     };
 
-    const handleLogoClick = () => {
+    const handleLogoClick = () => { //eslint-disable-line no-unused-vars
         navigate('/main');
     };
 
     return (
         <>
-            <header className="header-container">
-                <div className="logo" onClick={handleLogoClick}>BamGallary</div>
-                <div className="search-container">
-                    <input
-                        type="text"
-                        placeholder="검색어를 입력하세요"
-                        onChange={e => setSearchTerm(e.target.value)}
-                        id = "nope"
-                    />
-                </div>
-                <div className="my-post-container" onClick={toggleMenu}>
-                    <p>임시저장된 글 <span> | </span> {username} </p>
-                    <img src={picture2} alt="face-symbol" />
-                </div>
-            </header>
+            <Header
+                username={username}
+                setSearchTerm={setSearchTerm}
+                toggleMenu={toggleMenu}
+            />
             <div className="post-form">
                 <input
                     type="text"
