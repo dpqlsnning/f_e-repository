@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom'; 
 import picture2 from '../img/frame.png';
+import axios from 'axios';
 import styled from 'styled-components';
 
 const PostContainer = styled.div`
@@ -228,15 +229,19 @@ const CancelButton = styled(Button)`
 const Post = () => {
     const location = useLocation();
     const navigate = useNavigate();
-    const { title = '', content = '' } = location.state || {};
+    const { id = '', title = '', content = '' } = location.state || {};
 
-    const [titleState] = useState(title);
-    const [contentState] = useState(content);
+    const [titleState, setTitleState] = useState(title);
+    const [contentState, setContentState] = useState(content);
     const [isModalOpen, setIsModalOpen] = useState(false);
-    
+
     const handleEdit = () => {
         navigate('/new-post', {
-            state: { title: titleState, content: contentState },
+            state: { 
+                title: titleState, 
+                content: contentState,
+                id: id
+            },
         });
     };
 
@@ -244,12 +249,32 @@ const Post = () => {
         setIsModalOpen(true);
     };
 
-    const confirmDelete = () => {
-        navigate('/'); 
+    const confirmDelete = async () => {
+        try {
+            await axios.delete(`https://port-0-b-e-repository-m1qaons0275b16c0.sel4.cloudtype.app/board/delete/${id}`);
+            navigate('/');
+        } catch (error) {
+            console.error("Error deleting post:", error);
+        }
     };
 
     const cancelDelete = () => {
         setIsModalOpen(false);
+    };
+
+    const updatePost = async () => {
+        try {
+            const updatedPost = {
+                id: id,
+                title: titleState,
+                content: contentState,
+            };
+
+            await axios.put(`https://port-0-b-e-repository-m1qaons0275b16c0.sel4.cloudtype.app/board/update`, updatedPost);
+            navigate('/');
+        } catch (error) {
+            console.error("Error updating post:", error);
+        }
     };
 
     return (
@@ -271,12 +296,20 @@ const Post = () => {
             </Header>
             <PostForm>
                 <div style={{ display: 'flex', alignItems: 'center' }}>
-                    <TitleShow value={titleState} readOnly />
+                    <TitleShow 
+                        value={titleState} 
+                        readOnly 
+                        onChange={(e) => setTitleState(e.target.value)}
+                    />
                     <EditButton onClick={handleEdit}>수정</EditButton>
                     <DeleteButton onClick={handleDelete}>삭제</DeleteButton>
                 </div>
                 <Divider />
-                <Textarea value={contentState} readOnly />
+                <Textarea 
+                    value={contentState} 
+                    readOnly 
+                    onChange={(e) => setContentState(e.target.value)}
+                />
                 <Divider />
                 <AuthorInfo>
                     <div style={{ textAlign: 'center' }}>

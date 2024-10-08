@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import picture2 from '../img/frame.png';
 import picture3 from '../img/eye.png';
 import picture4 from '../img/Vector.png';
+import axios from 'axios';
 
 const HeaderContainer = styled.div`
     font-family: 'Pretendard', sans-serif;
@@ -180,7 +181,6 @@ const ToggleGroup = styled.div`
     }
 `;
 
-
 const FinalizeButton = styled.button`
     display: flex;
     justify-content: center;
@@ -203,7 +203,7 @@ const MainTitle = styled.button`
     border: none;
 `;
 
-const Header = ({ setSearchTerm, toggleMenu }) => {
+const CreatePost = ({ setSearchTerm, toggleMenu }) => {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -229,15 +229,35 @@ const Header = ({ setSearchTerm, toggleMenu }) => {
         setIsModalOpen(true);
     };
 
-    const handleFinalizePost = () => {
-        console.log('작성 완료:', { title, content, isPublic });
-        setTitle('');
-        setContent('');
-        setIsModalOpen(false);
+    const handleFinalizePost = async () => {
+        if (!title) {
+            alert('제목을 입력해주세요.');
+            return;
+        }
+        if (!content) {
+            alert('내용을 입력해주세요.');
+            return;
+        }
 
-        navigate('/post', {
-            state: { title, content, date, isPublic },
-        });
+        const postData = {
+            title: title,
+            content: content,
+        };
+
+        try {
+            const response = await axios.post('https://your-api-endpoint/board/save', postData);
+            console.log('게시글 저장 성공:', response.data);
+
+            setTitle('');
+            setContent('');
+            setIsModalOpen(false);
+
+            navigate('/post', {
+                state: { title, content, date, isPublic },
+            });
+        } catch (error) {
+            console.error('게시글 저장 실패:', error);
+        }
     };
 
     const handleLogoClick = () => {
@@ -299,4 +319,4 @@ const Header = ({ setSearchTerm, toggleMenu }) => {
     );
 };
 
-export default Header;
+export default CreatePost;
