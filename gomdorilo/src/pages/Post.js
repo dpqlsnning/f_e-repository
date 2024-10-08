@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Header from '../components/Header.js';
 import { useLocation, useNavigate } from 'react-router-dom'; 
 import picture2 from '../img/frame.png';
+import picture3 from '../img/heart.png';
 import axios from 'axios';
 import '../styled_components/Post.css';
 
@@ -79,6 +80,11 @@ const Post = () => {
                 />
                 <hr className="divider" />
                 <div className="author-info">
+                    <div id="comm">
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                            <img src={picture3} alt="heart" id="heart" />
+                        </div>
+                    </div>
                     <div id="comm">
                         추천
                         <div id="small">0</div>
