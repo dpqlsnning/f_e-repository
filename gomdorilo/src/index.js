@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; 
 import Main from './pages/Main.js';
 import CreatePost from './pages/CreatePost.js'; 
-import Login from './components/Login.js';
+import Login from './pages/Login.js';
 import Post from './pages/Post.js'; 
 import SignIn from './pages/SignIn.js';
 

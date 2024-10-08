@@ -1,4 +1,3 @@
-import styled from 'styled-components';
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate, Routes, Route } from 'react-router-dom';
 import axios from 'axios';
@@ -6,40 +5,7 @@ import Header from '../components/Dropdown.js';
 import Bar from '../components/Bar.js';
 import PostTable from './PostTable.js';
 import CreatePost from './CreatePost.js';
-
-const Container = styled.div`
-    font-family: 'Pretendard', sans-serif;
-    width: 100%;
-    margin: 0 auto;
-`;
-
-const NewPostButtonStyled = styled.button`
-    display: flex;
-    color: #fff;
-    justify-content: center;
-    text-align: center;
-    background-color: #1F8BFF;
-    font-weight: 600;
-    font-size: 20px;
-    border: none;
-    width: 9%;
-    padding-top: 1.1%;
-    padding-bottom: 1.1%;
-    margin-top: -4%;
-    margin-left: 75.3%;
-    border-radius: 8px;
-    white-space: nowrap;
-    cursor: pointer;
-`;
-
-const Line = styled.div`
-    width: 68%;
-    height: 1%;
-    margin-top: 3%;
-    margin-left: 16.2%;
-    border: 1px solid #000;
-    background-color: #000;
-`;
+import '../styled_components/Main.css'; 
 
 function Main() {
     const location = useLocation();
@@ -86,8 +52,8 @@ function Main() {
     };
 
     const handlePostSubmit = (newPost) => {
-        setPosts([...posts, newPost]);
-        setFilteredPosts([...posts, newPost]);
+        setPosts(prevPosts => [...prevPosts, newPost]);
+        setFilteredPosts(prevPosts => [...prevPosts, newPost]);
     };
 
     const handlePostSelect = async (id) => {
@@ -95,15 +61,12 @@ function Main() {
         navigate('/post', { state: { post: response.data } });
     };
 
-    const NewPostButton = () => {
-        const navigate = useNavigate();
-        return (
-            <NewPostButtonStyled onClick={() => navigate('/new-post')}>새 글 작성</NewPostButtonStyled>
-        );
-    };
+    const NewPostButton = () => (
+        <button className="new-post-button" onClick={() => navigate('/new-post')}>새 글 작성</button>
+    );
 
     return (
-        <Container>
+        <div className="main-container">
             <Header 
                 username={username} 
                 searchTerm={searchTerm} 
@@ -117,13 +80,13 @@ function Main() {
                 handleTypeClick={handleTypeClick} 
             />
             <NewPostButton />
-            <Line />
+            <div className="line" />
             <PostTable filteredPosts={filteredPosts} onPostSelect={handlePostSelect} />
             <Routes>
                 <Route path="/new-post" element={<CreatePost onPostSubmit={handlePostSubmit} />} />
                 <Route path="/post" element={<Main />} /> 
             </Routes>
-        </Container>
+        </div>
     );
 }
 

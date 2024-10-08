@@ -190,3 +190,12 @@
 .main-title {
     margin-top: -6%;
 }
+
+#comm {
+    text-align: center;
+}
+
+#small {
+    font-weight: bold;
+    font-size: 20px;
+}

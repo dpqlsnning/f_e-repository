@@ -79,13 +79,13 @@ const Post = () => {
                 />
                 <hr className="divider" />
                 <div className="author-info">
-                    <div style={{ textAlign: 'center' }}>
+                    <div id="comm">
                         추천
-                        <div style={{ fontWeight: 'bold', fontSize: '20px' }}>0</div>
+                        <div id="small">0</div>
                     </div>
-                    <div style={{ textAlign: 'center' }}>
+                    <div id="comm">
                         댓글
-                        <div style={{ fontWeight: 'bold', fontSize: '20px' }}>0</div>
+                        <div id="small">0</div>
                     </div>
                     <div className="author-details">
                         <p>작성자: Jin_venus08</p>
