@@ -18,7 +18,7 @@
     padding-top: 2.5%;
     padding-bottom: 2.5%;
     color: #000;
-    padding-left: 2%;
+    padding-left: 6%;
 }
 
 .table-head th::after {
@@ -26,7 +26,7 @@
     position: absolute;
     bottom: -1px;
     left: 0;
-    width: 110%;
+    width: 102%;
     height: 1px;
     background-color: #999;
 }

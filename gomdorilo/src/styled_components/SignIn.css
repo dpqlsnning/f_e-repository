@@ -11,7 +11,7 @@
     margin-bottom: 2%;
     box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.2);
     padding: 2%;
-    width: 35%;
+    width: 33%;
     height: 60%;
 }
 
@@ -36,7 +36,7 @@
     margin-left: 12%;
     margin-bottom: 2%;
     border-bottom: 1.5px solid #B3B3B3;
-    font-size: 16px;
+    font-size: 20px;
 }
 
 .input::placeholder {
@@ -54,7 +54,7 @@
     border: none;
     border-radius: 8px;
     cursor: pointer;
-    font-size: 18px;
+    font-size: 20px;
 }
 
 .signin-button:hover {
@@ -70,5 +70,14 @@
     color: #1F8BFF;
     border: none;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 16px;
+}
+
+.nickname-status {
+    margin-left: 16%;
+    font-size: 18px;
+}
+
+#nick {
+    margin-top: 12%;
 }

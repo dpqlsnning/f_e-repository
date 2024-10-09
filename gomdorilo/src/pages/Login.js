@@ -12,7 +12,6 @@ const Login = () => {
 
     const handleSignIn = async () => {
         if (!email || !password) {
-            setError('이메일과 비밀번호를 입력하세요.');
             return;
         }
 
@@ -29,7 +28,6 @@ const Login = () => {
             navigate('/main'); 
         } catch (error) {
             console.error('로그인 실패:', error);
-            setError('로그인에 실패했습니다. 이메일과 비밀번호를 확인하세요.');
         } finally {
             setLoading(false);
         }
@@ -63,7 +61,7 @@ const Login = () => {
                 <button className="signin-button" onClick={handleSignIn} disabled={loading}>
                     로그인
                 </button>
-                <button className="sign-in-button" onClick={() => navigate('/signin')}>
+                <button className="signup-button" onClick={() => navigate('/signin')}>
                     회원가입하기
                 </button>
             </div>

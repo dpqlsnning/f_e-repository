@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation, useNavigate, Routes, Route, useParams } from 'react-router-dom';
+import { useNavigate, Routes, Route, useParams } from 'react-router-dom';
 import axios from 'axios';
 import Header from '../components/Dropdown.js';
 import Bar from '../components/Bar.js';
@@ -8,10 +8,11 @@ import CreatePost from './CreatePost.js';
 import '../styled_components/Main.css'; 
 
 function Main() {
-    const location = useLocation();
     const navigate = useNavigate();
     const { id } = useParams();
-    const username = location.state?.username || '';
+
+    const username = '지정한 사용자 이름'; 
+
     const [searchTerm, setSearchTerm] = useState('');
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [selectedType, setSelectedType] = useState('작성일');

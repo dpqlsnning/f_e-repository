@@ -21,7 +21,7 @@
     display: flex;
     align-items: center;
     width: 70%;
-    height: 30%;
+    height: 100%;
     margin-left: 18%;
     -webkit-tap-highlight-color: transparent;
 }
@@ -49,10 +49,9 @@
 
 .search-icon {
     display: flex;
-    width: 4.%;
+    width: 4%;
     height: 30%;
-    margin-left: -48px;
-    margin-bottom: 2%;
+    margin-left: -50px;
     align-items: center;
     cursor: pointer;
 }
@@ -62,10 +61,9 @@
     align-items: center;
     padding-right: 8.5%;
     font-weight: 500;
-    font-size: 1.2vw;
     white-space: nowrap;
     cursor: pointer;
-    margin-left: 6%;
+    margin-left: 10%;
 }
 
 .face-icon {

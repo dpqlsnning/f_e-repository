@@ -9,25 +9,43 @@ const SignIn = () => {
     const [nickname, setNickname] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
+    const [nicknameStatus, setNicknameStatus] = useState('닉네임을 입력하세요.');
     const [isNicknameVisible, setIsNicknameVisible] = useState(false);
     const navigate = useNavigate();
+
+    const usedNicknames = ['Jin_venus08', 'JohnDoe', '홍길동'];
+
+    const handleNicknameChange = (e) => {
+        const newNickname = e.target.value;
+        setNickname(newNickname);
+
+        if (!newNickname.trim()) {
+            setNicknameStatus('닉네임을 입력하세요.');
+        } else if (usedNicknames.includes(newNickname)) {
+            setNicknameStatus('이미 사용중인 닉네임입니다.');
+        } else {
+            setNicknameStatus('사용 가능한 닉네임입니다.');
+        }
+    };
 
     const handleSignUp = async () => {
         setErrorMessage('');
         setSuccessMessage('');
 
         if (!email || !password) {
-            setErrorMessage('이메일과 비밀번호를 입력해주세요.');
             return;
         }
 
         if (isNicknameVisible && !nickname) {
-            setErrorMessage('닉네임을 입력해주세요.');
             return;
         }
 
         if (!isNicknameVisible) {
             setIsNicknameVisible(true);
+            return;
+        }
+
+        if (nicknameStatus !== '사용 가능한 닉네임입니다.') {
             return;
         }
 
@@ -38,12 +56,12 @@ const SignIn = () => {
                 nickname
             });
 
+            localStorage.setItem('username', nickname);
             const token = response.data.token;
             localStorage.setItem('token', token);
-            setSuccessMessage('회원가입이 성공적으로 완료되었습니다!');
             navigate('/');
         } catch (error) {
-            setErrorMessage('회원가입 실패: ' + (error.response?.data?.message || '서버 오류가 발생했습니다.'));
+            setErrorMessage((error.response?.data?.message));
             console.error('회원가입 실패:', error);
         }
     };
@@ -84,35 +102,44 @@ const SignIn = () => {
                 )}
 
                 {isNicknameVisible && (
-                    <div className="input-field">
+                    <div className="input-field" id="nick">
                         <input
                             type="text"
                             className="input"
                             placeholder="닉네임 입력"
                             value={nickname}
-                            onChange={(e) => setNickname(e.target.value)}
+                            onChange={handleNicknameChange}
                             required
                         />
+                        <div
+                            className="nickname-status"
+                            style={{
+                                color: nicknameStatus === '이미 사용중인 닉네임입니다.' ? '#ff1f1f' : nicknameStatus === '사용 가능한 닉네임입니다.' ? '#1F8BFF' : '#B3B3B3',
+                                marginTop: '5px'
+                            }}
+                        >
+                            {nicknameStatus}
+                        </div>
                     </div>
                 )}
 
                 {errorMessage && (
-                    <div className="error-message" style={{ color: 'red', margin: '10px 0' }}>
+                    <div className="error-message">
                         {errorMessage}
                     </div>
                 )}
 
                 {successMessage && (
-                    <div className="success-message" style={{ color: 'green', margin: '10px 0' }}>
+                    <div className="success-message">
                         {successMessage}
                     </div>
                 )}
 
                 <button className="signin-button" onClick={handleSignUp}>
-                    {isNicknameVisible ? '완료' : '회원가입'}
+                    회원가입
                 </button>
 
-                <button className="sign-in-button" onClick={handleSignIn}>로그인하기</button>
+                <button className="signup-button" onClick={handleSignIn}>로그인하기</button>
             </div>
         </div>
     );
