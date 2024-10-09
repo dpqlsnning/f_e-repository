@@ -1,118 +1,79 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import Header from '../components/Header.js'; 
-import '../styled_components/CreatePost.css'; 
-import picture3 from '../img/eye.png';
-import picture4 from '../img/Vector.png';
 import axios from 'axios';
+import '../styled_components/SignIn.css'; 
+import { useNavigate } from 'react-router-dom';
 
-const CreatePost = ({ setSearchTerm, toggleMenu }) => {
-    const [title, setTitle] = useState('');
-    const [content, setContent] = useState('');
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [username] = useState('Jin_venus08');
-    const [isPublic, setIsPublic] = useState(true); 
-    const [date] = useState('2024.10.01');
-    
+// Axios 인스턴스 생성 및 기본 설정
+const axiosInstance = axios.create({
+    baseURL: 'https://port-0-b-e-repository-m1qaons0275b16c0.sel4.cloudtype.app',
+    timeout: 5000, // 타임아웃을 5000ms로 설정
+    headers: {
+        'Content-Type': 'application/json', // Content-Type을 JSON으로 설정
+    },
+});
+
+const Login = () => {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     const navigate = useNavigate();
 
-    const handleSaveDraft = () => {
-        console.log('임시 저장:', { title, content });
-    };
-
-    const handleCompletePost = () => {
-        if (!title) {
-            alert('제목을 입력해주세요.');
-            return;
-        }
-        if (!content) {
-            alert('내용을 입력해주세요.');
-            return;
-        }
-        setIsModalOpen(true);
-    };
-
-    const handleFinalizePost = async () => {
-        if (!title) {
-            alert('제목을 입력해주세요.');
-            return;
-        }
-        if (!content) {
-            alert('내용을 입력해주세요.');
-            return;
-        }
-
-        const postData = {
-            title: title,
-            content: content,
-        };
-
+    const handleSignIn = async () => {
         try {
-            const response = await axios.post('https://port-0-b-e-repository-m1qaons0275b16c0.sel4.cloudtype.app/board/save', postData);
-            console.log('게시글 저장 성공:', response.data);
-
-            setTitle('');
-            setContent('');
-            setIsModalOpen(false);
-
-            navigate('/post', {
-                state: { title, content, date, isPublic },
+            const response = await axiosInstance.post('/board', {
+                email,
+                password,
             });
+            const token = response.data.token;
+            localStorage.setItem('token', token);
+            navigate('/main');
         } catch (error) {
-            console.error('게시글 저장 실패:', error);
+            console.error('로그인 실패:', error);
         }
     };
 
-    const handleLogoClick = () => { //eslint-disable-line no-unused-vars
-        navigate('/main');
+    const handleSignUp = async () => {
+        try {
+            // 회원가입 요청을 위한 API 엔드포인트를 확인하세요.
+            const response = await axiosInstance.post('/signup', {
+                email,
+                password,
+            });
+            console.log('회원가입 성공:', response.data);
+            navigate('/main'); // 회원가입 후 이동할 경로
+        } catch (error) {
+            console.error('회원가입 실패:', error);
+        }
     };
 
     return (
-        <>
-            <Header
-                username={username}
-                setSearchTerm={setSearchTerm}
-                toggleMenu={toggleMenu}
-            />
-            <div className="post-form">
-                <input
-                    type="text"
-                    className="title-input"
-                    placeholder="제목을 입력하세요"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                />
-                <textarea
-                    className="text-area"
-                    placeholder="내용을 입력하세요"
-                    value={content}
-                    onChange={(e) => setContent(e.target.value)}
-                />
-            </div>
-            <div className="button-group">
-                <button className="button save" onClick={handleSaveDraft}>임시 저장</button>
-                <button className="button complete" onClick={handleCompletePost}>작성 완료</button>
-            </div>
-
-            {isModalOpen && (
-                <div className="modal">
-                    <div className="modal-content">
-                        <button className="close-button" onClick={() => setIsModalOpen(false)}>X</button>
-                        <h2 className="main-title">작성을 완료하시겠습니까?</h2>
-                        <div className="toggle-group">
-                            <button onClick={() => setIsPublic(true)} className={isPublic ? 'active' : ''}>
-                                <img src={picture3} alt="public icon" width="30%" /> 공개
-                            </button>
-                            <button onClick={() => setIsPublic(false)} className={!isPublic ? 'active' : ''}>
-                                <img src={picture4} alt="private icon" width="18%" /> 비공개
-                            </button>
-                        </div>
-                        <button className="finalize-button" onClick={handleFinalizePost}>작성 완료</button>
-                    </div>
+        <div className="signin-container">
+            <div className="signin-box">
+                <h2 className="signin-title">Login</h2>
+                <div className="input-field">
+                    <input
+                        type="email"
+                        className="input"
+                        placeholder="이메일 입력"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                    />
                 </div>
-            )}
-        </>
+                <div className="input-field">
+                    <input
+                        type="password"
+                        className="input"
+                        placeholder="비밀번호 입력"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                    />
+                </div>
+                <button className="signin-button" onClick={handleSignUp}>회원가입</button>
+                <button className="sign-in-button" onClick={handleSignIn}>로그인하기</button>
+            </div>
+        </div>
     );
 };
 
-export default CreatePost;
+export default Login;

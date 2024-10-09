@@ -3,7 +3,7 @@ import '../styled_components/Header.css';
 import picture1 from '../img/material-symbols_search.png';
 import picture2 from '../img/frame.png';
 
-const Header = ({ username, searchTerm, setSearchTerm, handleSearch, toggleMenu }) => {
+const Header = ({ username = 'Jin_venus08', searchTerm, setSearchTerm, handleSearch, toggleMenu }) => {
     return (
         <div className="header-content">
             <div className="logo">
@@ -30,10 +30,6 @@ const Header = ({ username, searchTerm, setSearchTerm, handleSearch, toggleMenu 
             </div>
         </div>
     );
-};
-
-Header.defaultProps = {
-    username: 'Jin_venus08',
 };
 
 export default Header;

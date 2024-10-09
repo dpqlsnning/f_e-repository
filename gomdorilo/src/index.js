@@ -5,17 +5,19 @@ import Main from './pages/Main.js';
 import CreatePost from './pages/CreatePost.js'; 
 import Login from './pages/Login.js';
 import Post from './pages/Post.js'; 
-import SignIn from './pages/SignIn.js';
+import SignIn from './pages/SignIn.js'; 
+import Nickname from './pages/Nickname.js'; 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <Router>
         <Routes>
             <Route path="/" element={<Login />} />
-            <Route path="/main" element={<Main />} />
+            <Route path="/main/*" element={<Main />} /> 
             <Route path="/new-post" element={<CreatePost />} />
             <Route path="/post" element={<Post />} />
             <Route path="/signin" element={<SignIn />} />
+            <Route path="/nickname" element={<Nickname />} />
         </Routes>
     </Router>
 );

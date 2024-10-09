@@ -1,54 +1,57 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+import '../styled_components/SignIn.css'; 
 import { useNavigate } from 'react-router-dom';
-import '../styled_components/SignIn.css';
 
 const SignIn = () => {
-    const [password, setPassword] = useState('');
-    const confirmPassword = useState('');
     const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     const navigate = useNavigate();
 
-    const handleSignIn = () => {
-        if (password !== confirmPassword) {
-            return;
+    const handleSignIn = async () => {
+        try {
+            const response = await axios.post('http://localhost:3001/login', {
+                email,
+                password,
+            });
+            const token = response.data.token;
+            localStorage.setItem('token', token);
+            navigate('/main');
+        } catch (error) {
+            console.error('로그인 실패:', error);
         }
-        navigate('/signin'); 
     };
 
     const handleSignUp = () => {
-        navigate('/signup');
+        navigate('/nickname');
     };
 
     return (
         <div className="signin-container">
             <div className="signin-box">
-                <h2 className="signin-title">Sign In</h2>
-                <div className="signup-margin">
-                    <div className="input-field">
-                        <input
-                            type="email"
-                            id="email"
-                            value={email}
-                            className="input"
-                            placeholder="이메일 입력"
-                            onChange={(e) => setEmail(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <div className="input-field">
-                        <input
-                            type="password"
-                            id="password"
-                            value={password}
-                            className="input"
-                            placeholder="비밀번호 입력"
-                            onChange={(e) => setPassword(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <button className="signin-button" onClick={handleSignIn}> 로그인 </button>
-                    <button className="signup-button" onClick={handleSignUp}> 회원가입하기 </button>
+                <h2 className="signin-title">Sign up</h2>
+                <div className="input-field">
+                    <input
+                        type="email"
+                        className="input"
+                        placeholder="이메일 입력"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                    />
                 </div>
+                <div className="input-field">
+                    <input
+                        type="password"
+                        className="input"
+                        placeholder="비밀번호 입력"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                    />
+                </div>
+                <button className="signin-button" onClick={handleSignUp}>회원가입</button>
+                <button className="sign-in-button" onClick={handleSignIn}>로그인하기</button>
             </div>
         </div>
     );

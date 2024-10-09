@@ -19,7 +19,7 @@
     text-align: center;
     font-size: 70px;
     font-weight: 600;
-    margin-bottom: 5%;
+    margin-bottom: 10%;
     margin-top: 8%;
     color: #1F8BFF;
 }
@@ -39,14 +39,15 @@ input {
     font-size: 16px;
 }
 
-.input::placeholder {
+input::placeholder {
     color: #B3B3B3;
 }
 
-.login-btn {
+.login-button {
     margin-left: 12%;
     width: 78%;
     height: 60px;
+    margin-top: 12.2%;
     padding: 2.4%;
     background-color: #999;
     color: #fff;
@@ -56,7 +57,7 @@ input {
     font-size: 18px;
 }
 
-.login-btn:hover {
+.login-button:hover {
     background-color: #1F8BFF;
 }
 

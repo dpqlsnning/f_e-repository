@@ -7,6 +7,15 @@ import PostTable from './PostTable.js';
 import CreatePost from './CreatePost.js';
 import '../styled_components/Main.css'; 
 
+// Axios 인스턴스 생성 및 기본 설정
+const axiosInstance = axios.create({
+    baseURL: 'https://port-0-b-e-repository-m1qaons0275b16c0.sel4.cloudtype.app',
+    timeout: 5000, // 타임아웃을 5000ms로 설정
+    headers: {
+        'Content-Type': 'application/json', // Content-Type을 JSON으로 설정
+    },
+});
+
 function Main() {
     const location = useLocation();
     const username = location.state?.username || 'Guest';
@@ -20,7 +29,7 @@ function Main() {
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const response = await axios.get(`https://port-0-b-e-repository-m1qaons0275b16c0.sel4.cloudtype.app/board`);
+                const response = await axiosInstance.get(`/board`);
                 setPosts(response.data);
                 setFilteredPosts(response.data);
             } catch (err) {
@@ -57,8 +66,12 @@ function Main() {
     };
 
     const handlePostSelect = async (id) => {
-        const response = await axios.get(`https://port-0-b-e-repository-m1qaons0275b16c0.sel4.cloudtype.app/board/get/${id}`);
-        navigate('/post', { state: { post: response.data } });
+        try {
+            const response = await axiosInstance.get(`/board/get/${id}`);
+            navigate('/post', { state: { post: response.data } });
+        } catch (err) {
+            console.error('게시글 가져오기 실패:', err);
+        }
     };
 
     const NewPostButton = () => (

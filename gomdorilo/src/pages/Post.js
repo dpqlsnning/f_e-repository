@@ -3,7 +3,6 @@ import Header from '../components/Header.js';
 import { useLocation, useNavigate } from 'react-router-dom'; 
 import picture2 from '../img/frame.png';
 import picture3 from '../img/heart.png';
-import axios from 'axios';
 import '../styled_components/Post.css';
 
 const Post = () => {
@@ -29,30 +28,8 @@ const Post = () => {
         setIsModalOpen(true);
     };
 
-    const confirmDelete = async () => {
-        try {
-            await axios.delete(`https://port-0-b-e-repository-m1qaons0275b16c0.sel4.cloudtype.app/board/delete/${id}`);
-            navigate('/');
-        } catch (error) {
-            console.error("Error deleting post:", error);
-        }
-    };
-
     const cancelDelete = () => {
         setIsModalOpen(false);
-    };
-
-    const updatePost = async () => { //eslint-disable-line no-unused-vars
-        try {
-            await axios.put(`https://port-0-b-e-repository-m1qaons0275b16c0.sel4.cloudtype.app/board/update`, {
-                id: id,
-                title: titleState,
-                content: contentState,
-            });
-            navigate('/');
-        } catch (error) {
-            console.error("Error updating post:", error);
-        }
     };
 
     return (
@@ -100,12 +77,21 @@ const Post = () => {
                     <img src={picture2} alt="face-symbol" className="author-image" />
                 </div>
             </div>
+
+            <div className="comment-section">
+                <input 
+                    type="text" 
+                    className="comment-input" 
+                    placeholder="댓글 작성"
+                />
+                <button className="add-comment-button">댓글 추가</button>
+            </div>
             {isModalOpen && (
                 <div className="modal">
                     <div className="modal-content">
                         <p className="modal-text"> 이 글을 삭제하시겠습니까?</p>
                         <button className="cancel-button" onClick={cancelDelete}>취소</button>
-                        <button className="modal-delete-button" onClick={confirmDelete}>삭제</button>
+                        <button className="modal-delete-button">삭제</button>
                     </div>
                 </div>
             )}
