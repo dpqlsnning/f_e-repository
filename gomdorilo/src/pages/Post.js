@@ -91,7 +91,7 @@ const Post = () => {
                     <div className="modal-content">
                         <p className="modal-text"> 이 글을 삭제하시겠습니까?</p>
                         <button className="cancel-button" onClick={cancelDelete}>취소</button>
-                        <button className="modal-delete-button">삭제</button>
+                        <button className="modal-delete-button" >삭제</button>
                     </div>
                 </div>
             )}

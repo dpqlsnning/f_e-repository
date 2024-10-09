@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation, useNavigate, Routes, Route } from 'react-router-dom';
+import { useLocation, useNavigate, Routes, Route, useParams } from 'react-router-dom';
 import axios from 'axios';
 import Header from '../components/Dropdown.js';
 import Bar from '../components/Bar.js';
@@ -7,38 +7,32 @@ import PostTable from './PostTable.js';
 import CreatePost from './CreatePost.js';
 import '../styled_components/Main.css'; 
 
-// Axios 인스턴스 생성 및 기본 설정
-const axiosInstance = axios.create({
-    baseURL: 'https://port-0-b-e-repository-m1qaons0275b16c0.sel4.cloudtype.app',
-    timeout: 5000, // 타임아웃을 5000ms로 설정
-    headers: {
-        'Content-Type': 'application/json', // Content-Type을 JSON으로 설정
-    },
-});
-
 function Main() {
     const location = useLocation();
-    const username = location.state?.username || 'Guest';
+    const navigate = useNavigate();
+    const { id } = useParams();
+    const username = location.state?.username || '';
     const [searchTerm, setSearchTerm] = useState('');
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const navigate = useNavigate();
     const [selectedType, setSelectedType] = useState('작성일');
     const [filteredPosts, setFilteredPosts] = useState([]);
     const [posts, setPosts] = useState([]);
 
     useEffect(() => {
-        const fetchPosts = async () => {
+        const fetchPost = async () => {
             try {
-                const response = await axiosInstance.get(`/board`);
-                setPosts(response.data);
-                setFilteredPosts(response.data);
+                if (id) {
+                    const response = await axios.get(`/get/${id}`);
+                    setPosts([response.data]); 
+                    setFilteredPosts([response.data]); 
+                }
             } catch (err) {
-                console.error(err);
+                console.error('게시물 가져오기 실패:', err);
             }
         };
 
-        fetchPosts();
-    }, []);
+        fetchPost();
+    }, [id]);
 
     const handleSearch = () => {
         const results = posts.filter(post => post.title.includes(searchTerm));
@@ -65,10 +59,10 @@ function Main() {
         setFilteredPosts(prevPosts => [...prevPosts, newPost]);
     };
 
-    const handlePostSelect = async (id) => {
+    const handlePostSelect = async (postId) => {
         try {
-            const response = await axiosInstance.get(`/board/get/${id}`);
-            navigate('/post', { state: { post: response.data } });
+            const response = await axios.get(`/board/get/${postId}`);
+            navigate(`/post/${postId}`, { state: { post: response.data } });
         } catch (err) {
             console.error('게시글 가져오기 실패:', err);
         }
@@ -97,7 +91,7 @@ function Main() {
             <PostTable filteredPosts={filteredPosts} onPostSelect={handlePostSelect} />
             <Routes>
                 <Route path="/new-post" element={<CreatePost onPostSubmit={handlePostSubmit} />} />
-                <Route path="/post" element={<Main />} /> 
+                <Route path="/post/:id" element={<Main />} /> 
             </Routes>
         </div>
     );

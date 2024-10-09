@@ -1,45 +1,45 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import '../styled_components/SignIn.css'; 
 import { useNavigate } from 'react-router-dom';
-
-// Axios 인스턴스 생성 및 기본 설정
-const axiosInstance = axios.create({
-    baseURL: 'https://port-0-b-e-repository-m1qaons0275b16c0.sel4.cloudtype.app',
-    timeout: 5000, // 타임아웃을 5000ms로 설정
-    headers: {
-        'Content-Type': 'application/json', // Content-Type을 JSON으로 설정
-    },
-});
+import '../styled_components/SignIn.css';
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false); 
     const navigate = useNavigate();
 
     const handleSignIn = async () => {
-        navigate('/Login');
+        if (!email || !password) {
+            setError('이메일과 비밀번호를 입력하세요.');
+            return;
+        }
+
+        setError('');
+        setLoading(true); 
+
         try {
-            const response = await axiosInstance.post('/board', {
+            const response = await axios.post('https://port-0-b-e-repository-m1qaons0275b16c0.sel4.cloudtype.app/members/sign-in', {
                 email,
                 password,
             });
             const token = response.data.token;
             localStorage.setItem('token', token);
-            navigate('/main');
+            navigate('/main'); 
         } catch (error) {
             console.error('로그인 실패:', error);
+            setError('로그인에 실패했습니다. 이메일과 비밀번호를 확인하세요.');
+        } finally {
+            setLoading(false);
         }
-    };
-
-    const handleSignUp = () => {
-        navigate('/main');
     };
 
     return (
         <div className="signin-container">
             <div className="signin-box">
                 <h2 className="signin-title">Login</h2>
+                {error && <div className="error-message">{error}</div>}
                 <div className="input-field">
                     <input
                         type="email"
@@ -60,8 +60,12 @@ const Login = () => {
                         required
                     />
                 </div>
-                <button className="signin-button" onClick={handleSignUp}>회원가입</button>
-                <button className="sign-in-button" onClick={handleSignIn}>로그인하기</button>
+                <button className="signin-button" onClick={handleSignIn} disabled={loading}>
+                    로그인
+                </button>
+                <button className="sign-in-button" onClick={() => navigate('/signin')}>
+                    회원가입하기
+                </button>
             </div>
         </div>
     );

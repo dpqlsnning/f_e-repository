@@ -1,79 +1,89 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-import '../styled_components/SignIn.css'; 
 import { useNavigate } from 'react-router-dom';
+import Header from '../components/Header.js';
+import '../styled_components/CreatePost.css';
+import picture3 from '../img/eye.png';
+import picture4 from '../img/Vector.png';
+import { saveBoard } from '../api.js';
 
-// Axios 인스턴스 생성 및 기본 설정
-const axiosInstance = axios.create({
-    baseURL: 'https://port-0-b-e-repository-m1qaons0275b16c0.sel4.cloudtype.app',
-    timeout: 5000, // 타임아웃을 5000ms로 설정
-    headers: {
-        'Content-Type': 'application/json', // Content-Type을 JSON으로 설정
-    },
-});
-
-const Login = () => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+const CreatePost = ({ setSearchTerm, toggleMenu }) => {
+    const [boards, setBoards] = useState([]);
+    const [newBoard, setNewBoard] = useState({ title: '', content: '' });
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isPublic, setIsPublic] = useState(true);
+    const [username] = useState('Jin_venus08');
     const navigate = useNavigate();
 
-    const handleSignIn = async () => {
-        try {
-            const response = await axiosInstance.post('/board', {
-                email,
-                password,
-            });
-            const token = response.data.token;
-            localStorage.setItem('token', token);
-            navigate('/main');
-        } catch (error) {
-            console.error('로그인 실패:', error);
-        }
-    };
+    const handleSave = async () => {
+        if (!newBoard.title || !newBoard.content) {
+            alert('제목과 내용을 입력해주세요.');
+        return;
+    }
 
-    const handleSignUp = async () => {
-        try {
-            // 회원가입 요청을 위한 API 엔드포인트를 확인하세요.
-            const response = await axiosInstance.post('/signup', {
-                email,
-                password,
-            });
-            console.log('회원가입 성공:', response.data);
-            navigate('/main'); // 회원가입 후 이동할 경로
-        } catch (error) {
-            console.error('회원가입 실패:', error);
-        }
-    };
-
-    return (
-        <div className="signin-container">
-            <div className="signin-box">
-                <h2 className="signin-title">Login</h2>
-                <div className="input-field">
-                    <input
-                        type="email"
-                        className="input"
-                        placeholder="이메일 입력"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                    />
-                </div>
-                <div className="input-field">
-                    <input
-                        type="password"
-                        className="input"
-                        placeholder="비밀번호 입력"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                    />
-                </div>
-                <button className="signin-button" onClick={handleSignUp}>회원가입</button>
-                <button className="sign-in-button" onClick={handleSignIn}>로그인하기</button>
-            </div>
-        </div>
-    );
+    try {
+        const savedBoard = await saveBoard({ ...newBoard, username, isPublic });
+        setBoards([...boards, savedBoard]);
+        setNewBoard({ title: '', content: '' });
+        setIsModalOpen(false);
+        navigate('/post'); 
+    } catch (error) {
+        console.error('게시글 저장 실패:', error);
+    }
 };
 
-export default Login;
+const handleCompletePost = () => {
+    setIsModalOpen(true);
+};
+
+const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setNewBoard({ title: '', content: '' });
+};
+
+const handleFinalizePost = async () => {
+    await handleSave(); 
+};
+
+return (
+    <>
+    <Header username={username} setSearchTerm={setSearchTerm} toggleMenu={toggleMenu} />
+    <div className="post-form">
+        <input
+            type="text"
+            className="title-input"
+            placeholder="제목을 입력하세요"
+            value={newBoard.title}
+            onChange={(e) => setNewBoard({ ...newBoard, title: e.target.value })}
+        />
+        <textarea
+            className="text-area"
+            placeholder="내용을 입력하세요"
+            value={newBoard.content}
+            onChange={(e) => setNewBoard({ ...newBoard, content: e.target.value })}
+        />
+        </div>
+        <div className="button-group">
+            <button className="button complete" onClick={handleCompletePost}>작성 완료</button>
+        </div>
+
+{isModalOpen && (
+        <div className="modal">
+            <div className="modal-content">
+                <button className="close-button" onClick={handleCloseModal}>X</button>
+                <h2 className="main-title">작성을 완료하시겠습니까?</h2>
+                <div className="toggle-group">
+                    <button onClick={() => setIsPublic(true)} className={isPublic ? 'active' : ''}>
+                        <img src={picture3} alt="public icon" width="30%" /> 공개
+                    </button>
+                <button onClick={() => setIsPublic(false)} className={!isPublic ? 'active' : ''}>
+                    <img src={picture4} alt="private icon" width="18%" /> 비공개
+                </button>
+            </div>
+            <button className="finalize-button" onClick={handleFinalizePost}>작성 완료</button>
+            </div>
+        </div>
+    )}
+</>
+);};
+
+export default CreatePost;
