@@ -13,6 +13,7 @@ const CreatePost = ({ setSearchTerm, toggleMenu }) => {
     const [isPublic, setIsPublic] = useState(true);
     const username = localStorage.getItem('username') || 'Jin_venus08';
     const navigate = useNavigate();
+    const setTempSavedBoard = useState(null);
 
     const handleSave = async () => {
         if (!newBoard.title || !newBoard.content) {
@@ -29,6 +30,11 @@ const CreatePost = ({ setSearchTerm, toggleMenu }) => {
         } catch (error) {
             console.error('게시글 저장 실패:', error);
         }
+    };
+
+    const handleTempSave = () => {
+        setTempSavedBoard(newBoard); 
+        alert('게시글이 임시 저장되었습니다.');
     };
 
     const handleCompletePost = () => {
@@ -63,6 +69,7 @@ const CreatePost = ({ setSearchTerm, toggleMenu }) => {
                 />
             </div>
             <div className="button-group">
+                <button className="button temp-save" onClick={handleTempSave}>임시 저장</button>
                 <button className="button complete" onClick={handleCompletePost}>작성 완료</button>
             </div>
 

@@ -4,6 +4,7 @@ import picture1 from '../img/material-symbols_search.png';
 import picture2 from '../img/frame.png';
 
 const Header = ({ username = '', searchTerm, setSearchTerm, handleSearch, toggleMenu }) => {
+    
     return (
         <div className="header-content">
             <div className="logo">

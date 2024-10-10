@@ -2,14 +2,15 @@ import axios from 'axios';
 
 const API_BASE_URL = 'https://port-0-b-e-repository-m1qaons0275b16c0.sel4.cloudtype.app';
 
-export const saveBoard = async (requestData) => {
-  try {
-    const response = await axios.post(`${API_BASE_URL}/board/save`, requestData);
+export const saveBoard = async (boardData) => {
+    const token = localStorage.getItem('jwtToken'); 
+    const response = await axios.post('/board/save', boardData, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+        },
+    });
     return response.data;
-  } catch (error) {
-    console.error("Error saving board:", error.response ? error.response.data : error.message);
-    throw error;
-  }
 };
 
 export const handleSignIn = async () => {

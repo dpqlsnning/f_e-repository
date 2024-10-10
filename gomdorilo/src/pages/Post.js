@@ -10,6 +10,7 @@ const Post = () => {
     const navigate = useNavigate();
     const { id = '', title = '', content = '' } = location.state || {};
 
+    const username = localStorage.getItem('username') || 'Jin_venus08'; 
     const [titleState, setTitleState] = useState(title);
     const [contentState, setContentState] = useState(content);
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -34,9 +35,7 @@ const Post = () => {
 
     return (
         <div className="post-container">
-            <Header 
-                username="Jin_venus08" 
-            />
+            <Header username={username} />
             <div className="post-form">
                 <div style={{ display: 'flex', alignItems: 'center' }}>
                     <input 
@@ -71,7 +70,7 @@ const Post = () => {
                         <div id="small">0</div>
                     </div>
                     <div className="author-details">
-                        <p>작성자: Jin_venus08</p>
+                        <p>작성자: {username}</p>
                         <button className="follow-button">팔로우</button>
                     </div>
                     <img src={picture2} alt="face-symbol" className="author-image" />
@@ -79,19 +78,19 @@ const Post = () => {
             </div>
 
             <div className="comment-section">
-                <input 
+                <textarea
                     type="text" 
                     className="comment-input" 
                     placeholder="댓글 작성"
                 />
-                <button className="add-comment-button">댓글 추가</button>
+                <button className="add-comment-button">작성하기</button>
             </div>
             {isModalOpen && (
                 <div className="modal">
                     <div className="modal-content">
                         <p className="modal-text"> 이 글을 삭제하시겠습니까?</p>
                         <button className="cancel-button" onClick={cancelDelete}>취소</button>
-                        <button className="modal-delete-button" >삭제</button>
+                        <button className="modal-delete-button">삭제</button>
                     </div>
                 </div>
             )}
