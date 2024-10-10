@@ -23,11 +23,15 @@ const Login = () => {
                 email,
                 password,
             });
+            console.log(response.data);
+
             const token = response.data.token;
             localStorage.setItem('token', token);
+            axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
             navigate('/main'); 
         } catch (error) {
             console.error('로그인 실패:', error);
+            setError('로그인에 실패했습니다. 다시 시도해주세요.');
         } finally {
             setLoading(false);
         }
